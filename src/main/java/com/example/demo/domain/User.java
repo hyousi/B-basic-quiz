@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.validation.constraints.Min;
@@ -32,9 +33,10 @@ public class User {
     private String description;
 
     @JsonIgnore
-    private List<Education> educationList;
+    private List<Education> educationList = new ArrayList<>();
 
     public void addEducation(Education education) {
+        education.setUserId(id);
         educationList.add(education);
     }
 

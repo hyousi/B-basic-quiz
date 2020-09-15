@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Education {
     @NotNull
-    private long year;
+    private Long year;
 
     @NotNull
     @Size(min = 1, max = 256)
@@ -20,4 +20,6 @@ public class Education {
     @NotNull
     @Size(min = 1, max = 4096)
     private String description;
+
+    private Long userId;
 }
