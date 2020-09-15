@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User get(@PathVariable long id) {
-        return userService.get(id);
+        return userService.getUser(id);
     }
 
     @PostMapping("/users")
@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getAll() {
-        return userService.getAll();
+        return userService.getAllUsers();
     }
 
     @GetMapping("/users/{id}/educations")

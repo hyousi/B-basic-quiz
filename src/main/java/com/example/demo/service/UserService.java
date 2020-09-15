@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Education;
 import com.example.demo.domain.User;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.UserRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User get(long id) {
-        return userRepository.findById(id);
+    public User getUser(long id) {
+        User user = userRepository.findById(id);
+
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+
+        return user;
     }
 
     public List<Education> getUserEducations(long id) {
-        return userRepository.findById(id).getEducationList();
+        return getUser(id).getEducationList();
     }
 
     public void add(User user) {
@@ -28,13 +35,10 @@ public class UserService {
     }
 
     public void addEducation(long id, Education education) {
-        User user = userRepository.findById(id);
-        if (user != null) {
-            user.addEducation(education);
-        }
+        getUser(id).addEducation(education);
     }
 
-    public List<User> getAll() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 }

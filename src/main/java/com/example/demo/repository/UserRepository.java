@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.User;
+import com.example.demo.exception.UserExistsException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,9 +22,14 @@ public class UserRepository {
     }
 
     public void add(User user) {
+        if (users.stream().map(User::getId).anyMatch(id -> user.getId().equals(id))) {
+            throw new UserExistsException();
+        }
+
         if (user.getId() == null) {
             user.setId(size());
         }
+
         users.add(user);
     }
 
