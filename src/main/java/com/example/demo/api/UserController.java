@@ -33,6 +33,11 @@ public class UserController {
         userService.add(user);
     }
 
+    @GetMapping("/users")
+    public List<User> getAll() {
+        return userService.getAll();
+    }
+
     @GetMapping("/users/{id}/educations")
     public List<Education> getUserEducations(@PathVariable long id) {
         return userService.getUserEducations(id);

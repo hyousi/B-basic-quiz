@@ -1,7 +1,9 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.User;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Repository;
 
@@ -27,5 +29,9 @@ public class UserRepository {
 
     public long size() {
         return users.size();
+    }
+
+    public List<User> findAll() {
+        return new ArrayList<>(users);
     }
 }

@@ -33,4 +33,8 @@ public class UserService {
             user.addEducation(education);
         }
     }
+
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
 }
