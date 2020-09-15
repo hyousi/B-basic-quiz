@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Education;
 import com.example.demo.domain.User;
 import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,5 +17,9 @@ public class UserService {
 
     public User get(long id) {
         return userRepository.findById(id);
+    }
+
+    public List<Education> getUserEducations(long id) {
+        return userRepository.findById(id).getEducationList();
     }
 }
