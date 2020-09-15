@@ -4,8 +4,13 @@ import com.example.demo.domain.Education;
 import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
 import java.util.List;
+import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,6 +25,12 @@ public class UserController {
     @GetMapping("/users/{id}")
     public User get(@PathVariable long id) {
         return userService.get(id);
+    }
+
+    @PostMapping("/users")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void add(@RequestBody @Valid User user) {
+        userService.add(user);
     }
 
     @GetMapping("/users/{id}/educations")
