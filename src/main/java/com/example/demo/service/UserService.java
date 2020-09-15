@@ -26,4 +26,11 @@ public class UserService {
     public void add(User user) {
         userRepository.add(user);
     }
+
+    public void addEducation(long id, Education education) {
+        User user = userRepository.findById(id);
+        if (user != null) {
+            user.addEducation(education);
+        }
+    }
 }

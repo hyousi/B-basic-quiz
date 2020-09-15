@@ -34,6 +34,10 @@ public class User {
     @JsonIgnore
     private List<Education> educationList;
 
+    public void addEducation(Education education) {
+        educationList.add(education);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
