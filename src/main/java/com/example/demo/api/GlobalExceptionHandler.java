@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-
+// GTB: + 难得有一个人把 GlobalExceptionHandler 放对地方了
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

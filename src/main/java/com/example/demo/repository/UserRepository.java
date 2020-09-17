@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Repository;
 
+// GTB: + 把 Education 放到 User 里来统一存储，这样实现挺好，不管你是有意为之，还是无意的。以后接触到 NoSQL 之后你会了解到更多。
 @Repository
 public class UserRepository {
 
@@ -22,11 +23,13 @@ public class UserRepository {
     }
 
     public void add(User user) {
+        // GTB: 好奇为什么不使用 Map
         if (users.stream().map(User::getId).anyMatch(id -> user.getId().equals(id))) {
             throw new UserExistsException();
         }
 
         if (user.getId() == null) {
+            // GTB: - id 不要通过 size 来生成，太容易出错了，想想为什么
             user.setId(size());
         }
 

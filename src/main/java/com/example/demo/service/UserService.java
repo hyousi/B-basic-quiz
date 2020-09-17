@@ -17,6 +17,7 @@ public class UserService {
     }
 
     public User getUser(long id) {
+        // GTB: 了解下 Optional API
         User user = userRepository.findById(id);
 
         if (user == null) {
