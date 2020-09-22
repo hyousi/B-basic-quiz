@@ -3,8 +3,10 @@ package com.example.demo.service;
 import com.example.demo.domain.Education;
 import com.example.demo.domain.User;
 import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.repository.EducationRepository;
 import com.example.demo.repository.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,31 +14,36 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private final EducationRepository educationRepository;
+
+    public UserService(UserRepository userRepository,
+        EducationRepository educationRepository) {
         this.userRepository = userRepository;
+        this.educationRepository = educationRepository;
     }
 
+
     public User getUser(long id) {
-        // GTB: 了解下 Optional API
-        User user = userRepository.findById(id);
+        Optional<User> userOptional = userRepository.findById(id);
+        // TODO: add DTO layer to combine user with education list.
 
-        if (user == null) {
-            throw new UserNotFoundException();
-        }
-
-        return user;
+        return userOptional.orElseThrow(UserNotFoundException::new);
     }
 
     public List<Education> getUserEducations(long id) {
-        return getUser(id).getEducationList();
+
+        // TODO: add DTO layer to replace field `user` with `userId`
+        return educationRepository.findAllByUser(getUser(id));
     }
 
     public void add(User user) {
-        userRepository.add(user);
+        userRepository.save(user);
     }
 
     public void addEducation(long id, Education education) {
-        getUser(id).addEducation(education);
+        User user = getUser(id);
+        education.setUser(user);
+        educationRepository.save(education);
     }
 
     public List<User> getAllUsers() {
